@@ -1,10 +1,17 @@
-import 'package:edetik_app/features/auth/login/page/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
   runApp(
-    const MaterialApp(
-      home: LoginPage(),
-    ),
+    const Application(),
   );
 }
