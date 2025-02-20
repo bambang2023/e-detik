@@ -1,3 +1,4 @@
+import 'package:edetik_app/features/auth/login/page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -68,7 +69,14 @@ class WelcomePage extends StatelessWidget {
                         foregroundColor: Colors.pink[400],
                         backgroundColor: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Masuk',
                         style: GoogleFonts.poppins(
