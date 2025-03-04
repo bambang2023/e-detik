@@ -1,4 +1,5 @@
 import 'package:edetik_app/features/auth/login/page/login_page.dart';
+import 'package:edetik_app/features/auth/register/page/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,6 +9,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -48,7 +50,14 @@ class WelcomePage extends StatelessWidget {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.pink[400],
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterPage(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Buat Akun',
                         style: GoogleFonts.poppins(

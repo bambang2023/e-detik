@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'app.dart';
+import 'application.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +11,7 @@ void main() {
       DeviceOrientation.portraitDown,
     ],
   );
+
   runApp(
     const Application(),
   );
