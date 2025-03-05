@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioHelper {
-  Dio dio = Dio();
+  Dio dio = Dio()..interceptors.add(PrettyDioLogger());
   // singleton
   static final DioHelper instance = DioHelper._();
   DioHelper._();

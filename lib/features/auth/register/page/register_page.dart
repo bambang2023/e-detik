@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:edetik_app/features/auth/register/page/widgets/additional_input.dart';
 import 'package:edetik_app/features/widgets/input_datepicker.dart';
@@ -246,42 +247,56 @@ class _RegisterPageState extends State<RegisterPage> {
                         onPressed: roleSelected == AuthRole.none
                             ? null
                             : () async {
-                                if (formKey.currentState!.validate()) {
-                                  RegisterDatasource registerDatasource =
-                                      RegisterDatasource();
-                                  await registerDatasource.createUser({
-                                    'sebagai': roleSelected.title,
-                                    'nama': nameController.text,
-                                    'nik': nikController.text,
-                                    'password': passwordController.text,
-                                    'tgl_lahir': birthDateController.text,
-                                    if (value.citySelectedId != null)
-                                      'kabupaten': value.citySelectedId,
-                                    if (value.subdistrictSelectedId != null)
-                                      'kecamatan': value.subdistrictSelectedId,
-                                    if (value.desaSelectedId != null)
-                                      'desa': value.desaSelectedId,
-                                    if (value.puskesmasSelectedId != null)
-                                      'puskesmas': value.puskesmasSelectedId,
-                                    if (value.companionSelectedId != null) ...{
-                                      'pendamping_nik':
-                                          value.companionSelectedId,
-                                      'pendamping_name': value.companionName
+                                try {
+                                  if (formKey.currentState!.validate()) {
+                                    RegisterDatasource registerDatasource =
+                                        RegisterDatasource();
+                                    await registerDatasource.createUser({
+                                      'sebagai': roleSelected.title,
+                                      'nama': nameController.text,
+                                      'nik': nikController.text,
+                                      'password': passwordController.text,
+                                      'tgl_lahir': birthDateController.text,
+                                      if (value.citySelectedId != null)
+                                        'kabupaten': value.citySelectedId,
+                                      if (value.subdistrictSelectedId != null)
+                                        'kecamatan':
+                                            value.subdistrictSelectedId,
+                                      if (value.desaSelectedId != null)
+                                        'desa': value.desaSelectedId,
+                                      if (value.puskesmasSelectedId != null)
+                                        'puskesmas': value.puskesmasSelectedId,
+                                      if (value.companionSelectedId !=
+                                          null) ...{
+                                        'pendamping_nik':
+                                            value.companionSelectedId,
+                                        'pendamping_name': value.companionName
+                                      }
+                                    });
+                                    for (var controller in controllers) {
+                                      controller.clear();
                                     }
-                                  });
-                                  for (var controller in controllers) {
-                                    controller.clear();
+                                    roleSelected = AuthRole.none;
+                                    setState(() {});
+                                    if (context.mounted) {
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Pendaftaran Berhasil'),
+                                        ),
+                                      );
+                                    }
                                   }
-                                  roleSelected = AuthRole.none;
-                                  setState(() {});
-                                  if (context.mounted) {
-                                    Navigator.pop(context);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Pendaftaran Berhasil'),
-                                      ),
-                                    );
-                                  }
+                                } on DioException catch (e) {
+                                  if (!context.mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(e
+                                          .response!.data['data']['msg']
+                                          .toString()),
+                                    ),
+                                  );
                                 }
                               },
                         child: Text(

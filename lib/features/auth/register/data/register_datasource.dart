@@ -89,7 +89,7 @@ class RegisterDatasource {
           .toList();
       return result;
     } else {
-      throw Exception(response.data['data']['pendamping']);
+      throw Exception(response.data['data']['msg']);
     }
   }
 

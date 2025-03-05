@@ -1,0 +1,2 @@
+/Users/macbookpro/Documents/CODING/Projects/Mobile/edetik_app/android/app/.cxx/RelWithDebInfo/39k3z4q4/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/macbookpro/Documents/CODING/Projects/Mobile/edetik_app/android/app/.cxx/RelWithDebInfo/39k3z4q4/arm64-v8a/CMakeFiles/rebuild_cache.dir
