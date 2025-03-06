@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InputField extends StatelessWidget {
@@ -11,6 +12,8 @@ class InputField extends StatelessWidget {
     this.inputType,
     this.obscureText = false,
     this.validator,
+    this.inputFormatters,
+    this.suffixIcon,
   });
 
   final TextEditingController controller;
@@ -19,6 +22,8 @@ class InputField extends StatelessWidget {
   final TextInputType? inputType;
   final bool obscureText;
   final FormFieldValidator<String>? validator;
+  final List<TextInputFormatter>? inputFormatters;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,7 @@ class InputField extends StatelessWidget {
           height: 2,
         ),
         TextFormField(
+          inputFormatters: inputFormatters,
           validator: validator,
           style: GoogleFonts.poppins(
             fontSize: 12,
@@ -44,6 +50,7 @@ class InputField extends StatelessWidget {
           keyboardType: inputType,
           controller: controller,
           decoration: InputDecoration(
+            suffixIcon: suffixIcon,
             isDense: true,
             filled: true,
             fillColor: Colors.grey[200],

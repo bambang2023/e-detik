@@ -4,6 +4,7 @@ import 'package:edetik_app/features/auth/register/page/widgets/additional_input.
 import 'package:edetik_app/features/widgets/input_datepicker.dart';
 import 'package:edetik_app/features/widgets/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +48,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController desaController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  bool isObsecure = true;
 
   late List<TextEditingController> controllers = [
     nameController,
@@ -125,6 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 16,
                 ),
                 InputField(
+                  inputFormatters: [LengthLimitingTextInputFormatter(16)],
                   validator: (value) {
                     if (value!.length != 16) {
                       return 'NIK Harus Diisi 16 Digit';
@@ -144,8 +148,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: passwordController,
                   hint: 'Masukkan Password Anda',
                   label: 'Password',
-                  obscureText: true,
+                  obscureText: isObsecure,
                   prefixIcon: Icons.lock,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      isObsecure = !isObsecure;
+                      setState(() {});
+                    },
+                    icon: const Icon(Icons.visibility),
+                  ),
                 ),
                 SizedBox(
                   height: 16,
@@ -256,7 +267,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       'nama': nameController.text,
                                       'nik': nikController.text,
                                       'password': passwordController.text,
-                                      'tgl_lahir': birthDateController.text,
+                                      'tgl_lahir': value.dateSelected,
                                       if (value.citySelectedId != null)
                                         'kabupaten': value.citySelectedId,
                                       if (value.subdistrictSelectedId != null)
@@ -321,3 +332,10 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
+
+
+// NOTE:
+// 1. VISIBLE PASSWORD
+// 2. MAXLENGTH NIK
+// 3. TANGGAL 2 VALUE SHOW USER DAN REQUEST API

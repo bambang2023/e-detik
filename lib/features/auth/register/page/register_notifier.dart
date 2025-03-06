@@ -6,6 +6,7 @@ class RegisterNotifier extends ChangeNotifier {
   String? desaSelectedId;
   String? puskesmasSelectedId;
   String? companionSelectedId;
+  String? dateSelected;
   String? companionName;
 
   void setCityValue(String? newValue) {

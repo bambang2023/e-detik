@@ -1,6 +1,8 @@
+import 'package:edetik_app/features/auth/register/page/register_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class InputDatepicker extends StatelessWidget {
   const InputDatepicker({
@@ -43,9 +45,18 @@ class InputDatepicker extends StatelessWidget {
                 lastDate: DateTime.now(),
               );
               if (picked != null) {
-                String formattedDate = DateFormat('yyyy-MM-dd').format(picked);
+                String requestFormatDate =
+                    DateFormat('yyyy-MM-dd').format(picked);
+                String userFormatDate = DateFormat(
+                  'dd MMMM yyyy',
+                ).format(
+                  picked,
+                );
+
                 setState(() {
-                  controller.text = formattedDate;
+                  controller.text = userFormatDate;
+                  context.read<RegisterNotifier>().dateSelected =
+                      requestFormatDate;
                 });
               }
             },
